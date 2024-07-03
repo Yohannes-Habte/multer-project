@@ -1,0 +1,35 @@
+@import "../../styles/Variables.scss";
+@import "../../styles/Mixins.scss";
+
+.contact-page {
+  .contact-page-container {
+    width: $laptop;
+    margin: 1rem auto;
+
+    .contact-page-title {
+        @include title;
+    }
+
+    .contact-form {
+      width: 50%;
+      margin: auto;
+      @include shadow1;
+      padding: 1rem 2rem;
+
+      .input-container {
+        margin: 1rem 0;
+        .input-label {
+          font-size: $afs;
+        }
+        .input-field {
+          @include inputField;
+          margin-top: 0.3rem
+        }
+      }
+
+      .contact-btn {
+        @include button2;
+      }
+    }
+  }
+}

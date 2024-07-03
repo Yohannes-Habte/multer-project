@@ -1,0 +1,44 @@
+@import "../../styles/Variables.scss";
+@import "../../styles/Mixins.scss";
+
+.login-page {
+  .login-page-container {
+    width: $laptop;
+    margin: 1rem auto;
+
+    .login-page-title {
+      @include title;
+    }
+
+    .login-form {
+      width: 50%;
+      margin: auto;
+      @include shadow1;
+      padding: 1rem 2rem;
+
+      .input-container {
+        margin: 1rem 0;
+        .input-label {
+          font-size: $afs;
+        }
+        .input-field {
+          @include inputField;
+          margin-top: 0.3rem;
+        }
+      }
+
+      .remember-me-container {
+        @include flexRow;
+        margin-bottom: 1rem;
+
+        .remember-me-checkbox {
+          width: 1rem;
+        }
+      }
+
+      .login-btn {
+        @include button2;
+      }
+    }
+  }
+}

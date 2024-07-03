@@ -1,0 +1,76 @@
+@import "../../styles/Variables.scss";
+@import "../../styles/Mixins.scss";
+
+.register-page {
+  .register-page-container {
+    width: $laptop;
+    margin: 1rem auto;
+
+    .register-page-title {
+      @include title;
+    }
+
+    .register-form {
+      width: 50%;
+      margin: auto;
+      @include shadow1;
+      padding: 1rem 2rem;
+   
+
+      .input-container {
+        margin: 1rem 0;
+        .input-label {
+          font-size: $afs;
+        }
+        .input-field {
+          @include inputField;
+          margin-top: 0.3rem;
+        }
+
+        .gender-label {
+          font-size: $afs;
+        }
+
+        .gender-container {
+          @include inputField;
+          margin-top: 0.3rem;
+          @include flexRow;
+          gap: 4rem;
+
+          .radio-label {
+            .radio-input {
+              width: 1rem;
+            }
+          }
+        }
+      }
+
+      .languages {
+        @include flexSpaceBetween;
+        @include inputField;
+        padding: 1rem;
+
+        .language {
+          @include flexRow;
+
+          .language-checkbox {
+            width: 1rem;
+          }
+        }
+      }
+
+      .checkbox-consent-container {
+        margin: 1rem 0;
+        @include flexRow;
+
+        .input-checkbox {
+          width: 1rem;
+        }
+      }
+
+      .register-btn {
+        @include button2;
+      }
+    }
+  }
+}
