@@ -6,6 +6,7 @@ import "./database/index.js";
 // Routes
 import userRouter from "./routes/user/index.js";
 import commentRouter from "./routes/comment/index.js";
+import globalErrorHandler from "./middlewares/globalError/index.js";
 
 // Express app
 const app = express();
@@ -27,6 +28,7 @@ app.use("/api/v1/comments", commentRouter);
 // Static assets
 app.use(express.static("uploads"));
 
+app.use(globalErrorHandler)
 // Port
 const port = process.env.PORT || 4000;
 

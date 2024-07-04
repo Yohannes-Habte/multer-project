@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./LoginPage.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   email: "",
@@ -11,6 +13,8 @@ const initialState = {
 
 const LoginPage = () => {
   const [formData, setFormData] = useState(initialState);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -24,19 +28,35 @@ const LoginPage = () => {
     setFormData({ email: "", password: "", rememberMe: false });
   };
 
+  // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
+      const response = await axios.post(
         `http://localhost:8000/api/v1/users/login`,
         formData
       );
-      toast.success(data.message);
-      handleReset();
+      console.log("data =", response);
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setError("");
+        const token = response.data.token;
+        Cookies.set("token", token, { expires: 1 });
+
+        handleReset();
+        navigate("/");
+      }
     } catch (error) {
-      console.log(error);
+      setError("Invalid credentials");
     }
   };
+
+  // Handle logout
+  // const handleLogout = () => {
+  //   Cookies.remove("token");
+  //   navigate("/login");
+  // };
   return (
     <main className="login-page">
       <section className="login-page-container">
@@ -77,6 +97,7 @@ const LoginPage = () => {
           </div>
 
           <button className="login-btn">Login</button>
+          {error && <p className="text-red-500 text-center">{error}</p>}
         </form>
       </section>
     </main>

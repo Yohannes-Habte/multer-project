@@ -35,7 +35,7 @@ export const isAuthenticated = (req, res, next) => {
 
   const token = authHeader.split(" ")[1];
   if (!token) {
-    return next(createError(401, "User is not authenticated. Please login!"));
+    return next(createError(401, "User is not authenticated!"));
   }
 
   try {

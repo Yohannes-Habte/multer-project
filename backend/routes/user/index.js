@@ -10,6 +10,7 @@ import {
   loginUser,
   userLogout,
 } from "../../controllers/user/index.js";
+import { authAdmin, isAuthenticated } from "../../middlewares/auth/index.js";
 
 // Auth Router
 const userRouter = express.Router();
@@ -61,8 +62,8 @@ userRouter.post("/register", createUser);
 userRouter.post("/login", loginUser);
 userRouter.get("/logout", userLogout);
 userRouter.delete("/:id", deleteUser);
-userRouter.delete("/:id", getSingleUser);
-userRouter.delete("/", getAllUsers);
+userRouter.get("/:id", isAuthenticated, getSingleUser);
+userRouter.get("/", isAuthenticated, authAdmin, getAllUsers);
 
 // Export Auth Router
 export default userRouter;

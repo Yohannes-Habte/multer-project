@@ -68,7 +68,7 @@ export const createUser = async (req, res, next) => {
       res.status(201).json({
         success: true,
         user: newUser,
-        token,
+        token: token,
         message: "Your account is successfully created!",
       });
     }
@@ -102,19 +102,19 @@ export const loginUser = async (req, res, next) => {
     }
 
     if (user && isPasswordValid) {
-      // To prevent password and adming sending to the frontend, you can do ....
+      // To prevent password and admin sending to the frontend, you can do ....
       const { password, ...userDetails } = user._doc;
 
-      if (rememberMe) {
-        req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
-      }
+      // if (rememberMe) {
+      //   req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
+      // }
 
       const token = generateToken(user);
 
       res.status(200).json({
         success: true,
         user: { ...userDetails },
-        token,
+        token: token,
         message: "User successfully logged in!",
       });
     } else {
@@ -151,7 +151,7 @@ export const userLogout = async (req, res, next) => {
 //====================================================================
 export const getSingleUser = async (req, res, next) => {
   try {
-    const user = await Member.findById(req.params.id);
+    const user = await User.findById(req.params.id);
 
     if (!user) {
       return next(createError(400, "User not found! Please login!"));
@@ -171,7 +171,7 @@ export const getSingleUser = async (req, res, next) => {
 //====================================================================
 export const getAllUsers = async (req, res, next) => {
   try {
-    const users = await Member.find();
+    const users = await User.find();
 
     if (!users) {
       return next(createError(400, "User not found! Please login!"));
@@ -191,7 +191,7 @@ export const getAllUsers = async (req, res, next) => {
 //====================================================================
 export const deleteUser = async (req, res, next) => {
   try {
-    const user = await Member.findById(req.params.id);
+    const user = await User.findById(req.params.id);
 
     if (!user) {
       return next(createError(400, "User not found! Please login!"));
